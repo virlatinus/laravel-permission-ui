@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Controllers;
+namespace dfumagalli\PermissionsUI\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Controllers;
+namespace dfumagalli\PermissionsUI\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;

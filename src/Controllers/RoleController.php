@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Controllers;
+namespace dfumagalli\PermissionsUI\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;

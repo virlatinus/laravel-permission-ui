@@ -17,7 +17,9 @@ return [
             'name'       => 'Nome',
             'created_at' => 'Criado em',
             'updated_at' => 'Atualizado em',
-        ]
+        ],
+        'title_create' => 'Criar uma permissão',
+        'title_edit' => 'Editar uma permissão'
     ],
 
     'roles' => [
@@ -28,7 +30,9 @@ return [
             'permissions' => 'Permissões',
             'created_at'  => 'Criado em',
             'updated_at'  => 'Atualizado em',
-        ]
+        ],
+        'title_create' => 'Criar um papel',
+        'title_edit' => 'Editar um papel'
     ],
 
     'users' => [
@@ -40,6 +44,7 @@ return [
             'roles'      => 'Funções',
             'created_at' => 'Criado em',
             'updated_at' => 'Atualizado em',
-        ]
+        ],
+        'title_edit' => 'Atribuir funções ao usuário'
     ],
 ];

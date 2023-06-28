@@ -1,13 +1,17 @@
 {
-    "name": "laraveldaily/laravel-permission-ui",
+    "name": "dfumagalli/laravel-permission-ui",
     "description": "A Laravel package for adding UI for spatie/Laravel-permission package.",
     "type": "library",
-    "homepage": "https://github.com/LaravelDaily/laravel-permission-ui",
+    "homepage": "https://github.com/dfumagalli/laravel-permission-ui",
     "license": "MIT",
     "authors": [
         {
             "name": "Povilas Korop",
             "email": "povilas@laraveldaily.com"
+        },
+        {
+            "name": "Dario Fumagalli",
+            "email": "dfumagalli71@gmail.com"
         }
     ],
     "require": {
@@ -20,18 +24,18 @@
     },
     "autoload": {
         "psr-4": {
-            "LaravelDaily\\PermissionsUI\\": "src/"
+            "dfumagalli\\PermissionsUI\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaravelDaily\\PermissionsUI\\Tests\\": "tests/"
+            "dfumagalli\\PermissionsUI\\Tests\\": "tests/"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "LaravelDaily\\PermissionsUI\\PermissionsUIServiceProvider"
+                "dfumagalli\\PermissionsUI\\PermissionsUIServiceProvider"
             ]
         }
     },
@@ -40,5 +44,5 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "version": "0.1.4"    
+    "version": "0.3.1"
 }

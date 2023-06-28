@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI;
+namespace dfumagalli\PermissionsUI;
 
 use Illuminate\Support\ServiceProvider;
 

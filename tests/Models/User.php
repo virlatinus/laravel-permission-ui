@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Tests\Models;
+namespace dfumagalli\PermissionsUI\Tests\Models;
 
 use Spatie\Permission\Traits\HasRoles;
 use Orchestra\Testbench\Factories\UserFactory;

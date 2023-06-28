@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use LaravelDaily\PermissionsUI\Controllers\RoleController;
-use LaravelDaily\PermissionsUI\Controllers\PermissionController;
-use LaravelDaily\PermissionsUI\Controllers\UserController;
+use dfumagalli\PermissionsUI\Controllers\RoleController;
+use dfumagalli\PermissionsUI\Controllers\PermissionController;
+use dfumagalli\PermissionsUI\Controllers\UserController;
 
 Route::redirect(config('permission_ui.url_prefix'), config('permission_ui.url_prefix') . '/users');
 

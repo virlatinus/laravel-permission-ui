@@ -1,6 +1,6 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Facades;
+namespace dfumagalli\PermissionsUI\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

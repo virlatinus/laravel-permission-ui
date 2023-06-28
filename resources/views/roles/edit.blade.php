@@ -1,37 +1,49 @@
-@extends('PermissionsUI::layout')
+@extends('PermissionsUI::general')
+
+@section('title')
+    {{ __('PermissionsUI::permissions.roles.title_edit') }}
+@endsection
+
+@section('active_users', '')
+
+@section('active_roles', 'active')
+
+@section('active_permissions', '')
 
 @section('content')
-    <form class="space-y-4" action="{{ route(config('permission_ui.route_name_prefix') . 'roles.update', $role) }}" method="post">
+    <form class="mt-2 form-group" action="{{ route(config('permission_ui.route_name_prefix') . 'roles.update', $role) }}" method="post">
         @csrf
         @method('PATCH')
 
-        <div class="space-y-2">
-            <label class="text-base font-medium text-gray-700" for="name">{{ __('PermissionsUI::permissions.roles.fields.name') }}</label>
-            <input class="block w-full rounded-md border border-gray-300 px-2 py-1 shadow-sm" type="text" name="name" id="name" value="{{ old('name', $role->name) }}" required />
-            @error('name')
-                <span class="text-sm text-red-600">{{ $message }}</span>
-            @enderror
+        <div class="mt-4 text-xl-left">
+            <div class="mt-3">
+                <label class="d-block text-xl-left" for="name">{{ __('PermissionsUI::permissions.roles.fields.name') }}</label>
+                    <input class="px-2 py-1" type="text" name="name" id="name" value="{{ old('name', $role->name) }}" required />
+                @error('name')
+                    <span class="small danger">{{ $message }}</span>
+                @enderror
+            </div>
         </div>
 
         @if($permissions->count())
-            <div class="space-y-2">
-                <label class="block text-base font-medium text-gray-700" for="permissions">{{ __('PermissionsUI::permissions.roles.fields.permissions') }}</label>
-                <div class="space-x-2">
+            <div class="mt-3">
+                <label class="d-block text-xl-left" for="permissions">{{ __('PermissionsUI::permissions.roles.fields.permissions') }}</label>
+                <div class="ml-2">
                     @foreach($permissions as $id => $name)
-                        <div class="inline-flex space-x-1">
-                            <input class="rounded-md border-gray-300 shadow-sm" type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])) || $role->permissions->contains($id))>
-                            <label class="text-sm font-medium text-gray-700"  for="permission-{{ $id }}">{{ $name }}</label>
+                        <div class="d-inline-flex ml-3 align-middle">
+                            <input class="rounded-circle border border-primary mr-2 form-check-input" type="checkbox" name="permissions[]" id="permission-{{ $id }}" value="{{ $id }}" @checked(in_array($id, old('permissions', [])) || $role->permissions->contains($id))>
+                            <label class="form-check-label mr-4"  for="permission-{{ $id }}">{{ __($name) }}</label>
                         </div>
                     @endforeach
                 </div>
                 @error('permissions')
-                    <span class="text-sm text-red-600">{{ $message }}</span>
+                    <span class="small danger">{{ $message }}</span>
                 @enderror
             </div>
         @endif
 
-        <button class="rounded-md bg-gray-800 px-4 py-2 text-xs font-semibold text-white hover:bg-gray-700" type="submit">
-            {{ __('permissions.global.save') }}
+        <button class="btn {{ config('permission_ui.save_button_classes') }} mt-4 px-3 py-2" type="submit">
+            {{ __('PermissionsUI::permissions.global.save') }}
         </button>
     </form>
 @endsection

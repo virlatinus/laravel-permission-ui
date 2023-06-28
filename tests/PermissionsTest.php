@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Tests;
+namespace dfumagalli\PermissionsUI\Tests;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
-use LaravelDaily\PermissionsUI\Tests\Models\User;
+use dfumagalli\PermissionsUI\Tests\Models\User;
 
 class PermissionsTest extends TestCase
 {

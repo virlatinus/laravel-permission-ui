@@ -1,11 +1,11 @@
 <?php
 
-namespace LaravelDaily\PermissionsUI\Tests;
+namespace dfumagalli\PermissionsUI\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use LaravelDaily\PermissionsUI\PermissionsUIServiceProvider;
+use dfumagalli\PermissionsUI\PermissionsUIServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

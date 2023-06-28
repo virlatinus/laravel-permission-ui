@@ -17,7 +17,9 @@ return [
             'name'       => 'Nome',
             'created_at' => 'Creato il',
             'updated_at' => 'Modificato il',
-        ]
+        ],
+        'title_create' => 'Crea un permesso',
+        'title_edit' => 'Modifica un permesso'
     ],
 
     'roles' => [
@@ -28,7 +30,9 @@ return [
             'permissions' => 'Permessi',
             'created_at'  => 'Creato il',
             'updated_at'  => 'Modificato il',
-        ]
+        ],
+        'title_create' => 'Crea un ruolo',
+        'title_edit' => 'Modifica un ruolo'
     ],
 
     'users' => [
@@ -40,6 +44,7 @@ return [
             'roles'      => 'Ruoli',
             'created_at' => 'Creato il',
             'updated_at' => 'Modificato il',
-        ]
+        ],
+        'title_edit' => "Assegna ruoli all'utente"
     ],
 ];
