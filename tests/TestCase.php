@@ -1,17 +1,19 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Tests;
+namespace virlatinus\PermissionsUI\Tests;
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use dfumagalli\PermissionsUI\PermissionsUIServiceProvider;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use virlatinus\PermissionsUI\PermissionsUIServiceProvider;
+use Orchestra\Testbench\Attributes\WithMigration;
 
+#[WithMigration]
 abstract class TestCase extends Orchestra
 {
-    use LazilyRefreshDatabase;
+    use RefreshDatabase;
 
     public function setUp(): void
     {
@@ -20,7 +22,7 @@ abstract class TestCase extends Orchestra
         $this->withoutVite();
     }
 
-    protected function defineEnvironment($app)
+    protected function defineEnvironment($app): void
     {
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
@@ -41,15 +43,7 @@ abstract class TestCase extends Orchestra
 
     protected function defineDatabaseMigrations(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-        });
+        // $this->loadLaravelMigrations();
 
         $migration = require __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
         $migration->up();

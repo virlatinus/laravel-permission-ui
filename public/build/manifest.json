@@ -1,7 +1,10 @@
 {
   "resources/css/app.css": {
-    "file": "assets/app.8012c57d.css",
+    "file": "assets/app-Bbq_jM60.css",
     "src": "resources/css/app.css",
-    "isEntry": true
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
   }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI;
+namespace virlatinus\PermissionsUI;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -11,7 +11,7 @@ class PermissionsUIServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/permission_ui.php', 'permission_ui');
     }
 
-    public function boot()
+    public function boot(): void
     {
         // registering routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');

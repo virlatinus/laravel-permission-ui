@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Facades;
+namespace virlatinus\PermissionsUI\Facades;
 
 use Illuminate\Support\Facades\Facade;
 

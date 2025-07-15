@@ -1,22 +1,22 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Tests;
+namespace virlatinus\PermissionsUI\Tests;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
-use dfumagalli\PermissionsUI\Tests\Models\User;
+use virlatinus\PermissionsUI\Tests\Models\User;
 
 class PermissionsTest extends TestCase
 {
-    public function testRedirectUrlPrefixToUsersList()
+    public function testRedirectUrlPrefixToUsersList(): void
     {
         $response = $this->actingAs(User::factory()->create())->get(config('permission_ui.url_prefix'));
 
         $response->assertRedirect(route(config('permission_ui.route_name_prefix') . 'users.index'));
     }
 
-    public function testPermissionCanBeAttachedToRole()
+    public function testPermissionCanBeAttachedToRole(): void
     {
         $permission = Permission::create(['name' => 'permission']);
 
@@ -30,7 +30,7 @@ class PermissionsTest extends TestCase
         $this->assertTrue(Role::first()->hasPermissionTo($permission));
     }
 
-    public function testPermissionsShowsOnCreateAndEditRolePages()
+    public function testPermissionsShowsOnCreateAndEditRolePages(): void
     {
         $user = User::factory()->create();
 
@@ -40,9 +40,7 @@ class PermissionsTest extends TestCase
 
         $response->assertOk()
             ->assertViewHas('permissions', function (Collection $permissions) {
-                foreach ($permissions as $permission) {
-                    return $permission === 'create user';
-                }
+                return $permissions->contains('create user');
             });
 
         $role = Role::create(['name' => 'admin']);
@@ -51,13 +49,11 @@ class PermissionsTest extends TestCase
 
         $response->assertOk()
             ->assertViewHas('permissions', function (Collection $permissions) {
-                foreach ($permissions as $permission) {
-                    return $permission === 'create user';
-                }
+                return $permissions->contains('create user');
             });
     }
 
-    public function testWhenCreatingPermissionItCanBeAssignedToRole()
+    public function testWhenCreatingPermissionItCanBeAssignedToRole(): void
     {
         $role = Role::create(['name' => 'admin']);
 
@@ -71,7 +67,7 @@ class PermissionsTest extends TestCase
         $this->assertTrue(Permission::first()->hasRole($role));
     }
 
-    public function testWhenEditingPermissionItCanBeAssignedToRole()
+    public function testWhenEditingPermissionItCanBeAssignedToRole(): void
     {
         $role = Role::create(['name' => 'admin']);
         $permission = Permission::create(['name' => 'create user']);
