@@ -1,7 +1,7 @@
 @extends('PermissionsUI::layouts.layout')
 
 @section('title')
-  {{ __('PermissionsUI::permissions.roles.title_create') }}
+  {{ __('PermissionsUI::permissions.roles.title_edit_multi') }}
 @endsection
 
 @section('active_users', 'inactive')
@@ -14,24 +14,22 @@
   <div class="min-h-full flex flex-col justify-center sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-lg">
       <div class="px-6 py-12 bg-white shadow-sm sm:rounded-lg sm:px-12">
-        <form action="{{ route(config('permission_ui.route_name_prefix') . 'roles.store') }}" method="post">
+        <form action="{{ route('permission_ui.roles.update_multi') }}" method="post">
           @csrf
           <div class="pb-12 border-b border-gray-900/10">
 
             <div class="space-y-6">
 
-              <div>
-                <label for="name"
-                       class="block font-medium text-sm/6 text-gray-900">{{ __('PermissionsUI::permissions.roles.fields.name') }}</label>
-                <div class="mt-2">
-                  <input id="name" type="text" name="name" required autocomplete="name"
-                         placeholder="{{ __('PermissionsUI::permissions.roles.fields.name') }}"
-                         class="block w-full px-3 py-1.5 bg-white rounded-md outline-1 outline-gray-300 text-base text-gray-900 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 -outline-offset-1 placeholder:text-gray-400"/>
-                </div>
-                @error('name')
-                <p id="name-error" class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-              </div>
+              <fieldset>
+                <legend
+                    class="font-semibold text-sm/6 text-gray-900">{{ __('PermissionsUI::permissions.roles.title') }}</legend>
+                <div class="mt-6 space-y-1">
+                  @foreach($roles as $role)
+                    <input id="role-{{$role->id}}" type="hidden" name="roles[]"  value="{{ $role->id }}"/>
+                    <span class="inline-flex items-center rounded-md bg-gray-50 px-2 py-1 text-sm font-medium text-gray-600 ring-1 ring-gray-500/10 ring-inset">{{ $role->name }}</span>
+                  @endforeach
+                  </div>
+              </fieldset>
 
               @if($permissions->count())
                 <fieldset>
@@ -78,7 +76,9 @@
               {{ __('PermissionsUI::permissions.global.save') }}
             </button>
           </div>
-
+          @if(isset($returnUrl))
+          <input type="hidden" name="returnUrl" value="{{$returnUrl}}">
+          @endif
         </form>
       </div>
     </div>
