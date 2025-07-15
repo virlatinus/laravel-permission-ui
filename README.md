@@ -1,10 +1,6 @@
 ## Laravel Permission UI
 
-**Contributors:** Povilas Korop, Dario Fumagalli
-**Tags:** laravel, spatie, package, permissions, bootstrap
-**Requires at least:** 9.5
-**Tested up to:** 10.1
-**Stable tag:** 0.3.1
+**Tags:** laravel, spatie, package, permissions, tailwind
 **License:** MIT
 **License URI:** https://opensource.org/license/mit
 
@@ -16,14 +12,7 @@ Laravel Permission UI is a simple and intuitive dashboard for managing users rol
 
 Its roles and permissions engine is based on the [spatie/laravel-permission](https://github.com/spatie/laravel-permission) package.
 
-This Laravel Permission UI package has been forked from the [original](https://github.com/LaravelDaily/laravel-permission-ui) and has been ported to Bootstrap 4.
-
-This fork is also an upgrade, featuring:
-
-* A number of bug fixes, especially in the permissions editors.
-* It comes with some additional settings.
-* It comes with Italian and Spanish translations.
-* It is compatible with [Laravel Admin LTE](https://github.com/jeroennoten/Laravel-AdminLTE). In a future version it will support integration with existing menus.
+This Laravel Permission UI package has been forked from the [original](https://github.com/LaravelDaily/laravel-permission-ui) and has been ported to Tailwind CSS 4.
 
 ---
 
@@ -40,7 +29,7 @@ This package will create a simple Dashboard for managing roles/permissions based
 First, before installing this package, you need to have the `spatie/laravel-permission` installed and configured.
 
 ```sh
-composer require dfumagalli/laravel-permission-ui
+composer require virlatinus/laravel-permission-ui
 ```
 
 Go to `yourdomain.com/permissions` and you should see a simple dashboard with three menu items on top: to manage roles, permissions and assign them to users.
@@ -50,7 +39,7 @@ Go to `yourdomain.com/permissions` and you should see a simple dashboard with th
 That dashboard is by default protected by the `auth` middleware, but you can configure it, by publishing the config:
 
 ```sh
-php artisan vendor:publish --provider="dfumagalli\PermissionsUI\PermissionsUIServiceProvider" --tag="config"
+php artisan vendor:publish --provider="virlatinus\PermissionsUI\PermissionsUIServiceProvider" --tag="config"
 ```
 
 And then edit the values in `config/permission_ui.php`:
@@ -67,8 +56,7 @@ return [
 ];
 ```
 
-The visual design is based on simple Bootstrap 4 classes.
-At the moment, only button color customization options are available, but we may add them in the future, based on your ideas and feedback.
+The visual design is based on simple Tailwind CSS 4 classes.
 
 ---
 
@@ -77,7 +65,7 @@ At the moment, only button color customization options are available, but we may
 If you wish to translate the package, you may publish the language files using:
 
 ```sh
-php artisan vendor:publish --provider="dfumagalli\PermissionsUI\PermissionsUIServiceProvider" --tag="lang"
+php artisan vendor:publish --provider="virlatinus\PermissionsUI\PermissionsUIServiceProvider" --tag="lang"
 ```
 
 ---
@@ -98,11 +86,11 @@ This package is a simple user roles and permissions editor. It is a front-end fo
 
 ### Does it work with Tailwind?
 
-No, this package has been completely ported over to Bootstrap 4 / 5.
+Yes, this package has been completely ported over to Tailwind CSS 4.
 
 ### What Laravel versions is this package compatible with?
 
-It should work on Laravel 9 and 10.
+It should work on Laravel 9 up to 12.
 
 ### Is there a video about this package?
 
