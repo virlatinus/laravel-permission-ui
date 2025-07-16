@@ -21,9 +21,6 @@
                 <div class="flex flex-wrap  mt-4 mb-2 md:justify-center">
                     <div class="relative grow max-w-full flex-1 px-4 lg:w-1/3 pr-4 pl-4">
                         <nav class="relative flex flex-wrap items-center content-between py-3 px-4  text-black bg-gray-100">
-                            <button class="py-1 px-2 text-md leading-none bg-transparent border border-transparent rounded-sm" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                                <span class="px-5 py-1 border border-gray-600 rounded-sm"></span>
-                            </button>
                             <div class="grow items-center md:justify-center" id="navbarNav">
                                 <ul class="flex flex-wrap list-none pl-0 mb-0 justify-center">
                                     <li class=" @yield('active_users')">
