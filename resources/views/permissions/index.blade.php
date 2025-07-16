@@ -12,13 +12,13 @@
 
 @section('content')
     <div class="mt-4 mb-4 flex">
-        <a class="btn {{ config('permission_ui.save_button_classes') }} px-3 py-2" href="{{ route(config('permission_ui.route_name_prefix') . 'permissions.create') }}">{{ __('PermissionsUI::permissions.global.create') }}</a>
+        <a class="inline-block align-middle text-center select-none border font-normal whitespace-nowrap rounded-sm py-1 px-3 leading-none no-underline {{ config('permission_ui.save_button_classes') }} px-3 py-2" href="{{ route(config('permission_ui.route_name_prefix') . 'permissions.create') }}">{{ __('PermissionsUI::permissions.global.create') }}</a>
     </div>
 
-    <div class="card-body">
-        <table class="table table-bordered table-striped">
+    <div class="flex-auto p-6">
+        <table class="w-full max-w-full mb-4 bg-transparent table-bordered table-striped">
             <thead>
-                <tr class="bg-light">
+                <tr class="bg-gray-100">
                     <th class="px-3 py-2">{{ __('PermissionsUI::permissions.permissions.fields.id') }}</th>
                     <th>{{ __('PermissionsUI::permissions.permissions.fields.name') }}</th>
                     <th>{{ __('PermissionsUI::permissions.permissions.fields.created_at') }}</th>
@@ -34,14 +34,14 @@
                         <td>{{ __($permission->name) }}</td>
                         <td>{{ $permission->created_at }}</td>
                         <td class="px-3" style="border-left-width: 2px">
-                            <a class="btn {{ config('permission_ui.edit_button_classes') }} px-3 py-2" href="{{ route(config('permission_ui.route_name_prefix') . 'permissions.edit', $permission) }}" role="button">
+                            <a class="inline-block align-middle text-center select-none border font-normal whitespace-nowrap rounded-sm py-1 px-3 leading-none no-underline {{ config('permission_ui.edit_button_classes') }} px-3 py-2" href="{{ route(config('permission_ui.route_name_prefix') . 'permissions.edit', $permission) }}" role="button">
                                 {{ __('PermissionsUI::permissions.global.edit') }}
                             </a>
 
                             <form id="form{{ $formCount }}" action="{{ route(config('permission_ui.route_name_prefix') . 'permissions.destroy', $permission) }}" method="POST" style="display: inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn {{ config('permission_ui.delete_button_classes') }} px-3 py-2 delete-row" type="button" onclick="deleteTableRow('form{{ $formCount++ }}')" data-confirm="{{ __('PermissionsUI::permissions.global.confirm_action') }}">
+                                <button class="inline-block align-middle text-center select-none border font-normal whitespace-nowrap rounded-sm py-1 px-3 leading-none no-underline {{ config('permission_ui.delete_button_classes') }} px-3 py-2 delete-row" type="button" onclick="deleteTableRow('form{{ $formCount++ }}')" data-confirm="{{ __('PermissionsUI::permissions.global.confirm_action') }}">
                                     {{ __('PermissionsUI::permissions.global.delete') }}
                                 </button>
                             </form>
@@ -49,7 +49,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td class="p-4" colspan="4">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
+                        <td class="p-6" colspan="4">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
                     </tr>
                 @endforelse
             </tbody>
