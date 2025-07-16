@@ -4,12 +4,14 @@ namespace virlatinus\PermissionsUI\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use virlatinus\PermissionsUI\PermissionsUIServiceProvider;
+use Orchestra\Testbench\Attributes\WithMigration;
 
+#[WithMigration]
 abstract class TestCase extends Orchestra
 {
-    use LazilyRefreshDatabase;
+    use RefreshDatabase;
 
     public function setUp(): void
     {
@@ -39,8 +41,6 @@ abstract class TestCase extends Orchestra
 
     protected function defineDatabaseMigrations(): void
     {
-        $this->loadLaravelMigrations();
-
         $CreatePermissionTables = include __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
         $CreatePermissionTables->up();
     }

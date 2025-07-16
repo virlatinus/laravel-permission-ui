@@ -40,9 +40,7 @@ class PermissionsTest extends TestCase
 
         $response->assertOk()
             ->assertViewHas('permissions', function (Collection $permissions) {
-                $permissions->each(function($permission) {
-                    return $permission === 'create user';
-                });
+                return $permissions->contains('create user');
             });
 
         $role = Role::create(['name' => 'admin']);
@@ -51,9 +49,7 @@ class PermissionsTest extends TestCase
 
         $response->assertOk()
             ->assertViewHas('permissions', function (Collection $permissions) {
-                $permissions->each(function($permission) {
-                    return $permission === 'create user';
-                });
+                return $permissions->contains('create user');
             });
     }
 
