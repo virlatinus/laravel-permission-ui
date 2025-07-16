@@ -1,11 +1,11 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Tests;
+namespace virlatinus\PermissionsUI\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 use Spatie\Permission\PermissionServiceProvider;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
-use dfumagalli\PermissionsUI\PermissionsUIServiceProvider;
+use virlatinus\PermissionsUI\PermissionsUIServiceProvider;
 
 abstract class TestCase extends Orchestra
 {

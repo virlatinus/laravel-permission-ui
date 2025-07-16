@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI;
+namespace virlatinus\PermissionsUI;
 
 use Illuminate\Support\ServiceProvider;
 

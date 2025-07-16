@@ -1,11 +1,11 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Tests;
+namespace virlatinus\PermissionsUI\Tests;
 
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Collection;
 use Spatie\Permission\Models\Permission;
-use dfumagalli\PermissionsUI\Tests\Models\User;
+use virlatinus\PermissionsUI\Tests\Models\User;
 
 class PermissionsTest extends TestCase
 {

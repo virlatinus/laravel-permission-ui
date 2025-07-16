@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Controllers;
+namespace virlatinus\PermissionsUI\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;

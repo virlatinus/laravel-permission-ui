@@ -1,9 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use dfumagalli\PermissionsUI\Controllers\RoleController;
-use dfumagalli\PermissionsUI\Controllers\PermissionController;
-use dfumagalli\PermissionsUI\Controllers\UserController;
+use virlatinus\PermissionsUI\Controllers\RoleController;
+use virlatinus\PermissionsUI\Controllers\PermissionController;
+use virlatinus\PermissionsUI\Controllers\UserController;
 
 Route::redirect(config('permission_ui.url_prefix'), config('permission_ui.url_prefix') . '/users');
 

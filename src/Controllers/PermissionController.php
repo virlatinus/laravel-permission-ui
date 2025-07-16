@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Controllers;
+namespace virlatinus\PermissionsUI\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;

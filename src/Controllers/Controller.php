@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Controllers;
+namespace virlatinus\PermissionsUI\Controllers;
 
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

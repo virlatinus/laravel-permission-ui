@@ -1,6 +1,6 @@
 <?php
 
-namespace dfumagalli\PermissionsUI\Tests\Models;
+namespace virlatinus\PermissionsUI\Tests\Models;
 
 use Spatie\Permission\Traits\HasRoles;
 use Orchestra\Testbench\Factories\UserFactory;
