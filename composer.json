@@ -1,52 +1,52 @@
 {
-    "name": "virlatinus/laravel-permission-ui",
-    "description": "A Laravel package for adding UI for spatie/Laravel-permission package.",
-    "type": "library",
-    "homepage": "https://github.com/virlatinus/laravel-permission-ui",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Povilas Korop",
-            "email": "povilas@laraveldaily.com"
-        },
-        {
-            "name": "Dario Fumagalli",
-            "email": "dfumagalli71@gmail.com"
-        },
-        {
-            "name": "Werner Garcia",
-            "email": "virlatinus@gmail.com"
-        }
-    ],
-    "require": {
-        "php": "^8.0",
-        "spatie/laravel-permission": "^6.20"
+  "name": "virlatinus/laravel-permission-ui",
+  "description": "A Laravel package for adding UI for spatie/Laravel-permission package.",
+  "type": "library",
+  "homepage": "https://github.com/virlatinus/laravel-permission-ui",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Povilas Korop",
+      "email": "povilas@laraveldaily.com"
     },
-    "require-dev": {
-        "orchestra/testbench": "^10.4",
-        "phpunit/phpunit": "^12.2"
+    {
+      "name": "Dario Fumagalli",
+      "email": "dfumagalli71@gmail.com"
     },
-    "autoload": {
-        "psr-4": {
-            "virlatinus\\PermissionsUI\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "virlatinus\\PermissionsUI\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "virlatinus\\PermissionsUI\\PermissionsUIServiceProvider"
-            ]
-        }
-    },
-    "scripts": {
-        "test": "vendor/bin/phpunit"
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
-    "version": "0.0.1"
+    {
+      "name": "Werner Garcia",
+      "email": "virlatinus@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.4",
+    "spatie/laravel-permission": "^6.20"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^10.4",
+    "phpunit/phpunit": "^12.2"
+  },
+  "autoload": {
+    "psr-4": {
+      "virlatinus\\PermissionsUI\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "virlatinus\\PermissionsUI\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "virlatinus\\PermissionsUI\\PermissionsUIServiceProvider"
+      ]
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "version": "0.0.1"
 }
