@@ -11,7 +11,7 @@ Route::group([
     'middleware' => config('permission_ui.middleware'),
     'prefix'     => config('permission_ui.url_prefix'),
     'as'         => config('permission_ui.route_name_prefix')],
-    function () {
+    static function () {
         Route::resource('roles', RoleController::class)->except('show');
         Route::resource('permissions', PermissionController::class)->except('show');
         Route::resource('users', UserController::class)->only('index', 'edit', 'update');

@@ -18,7 +18,7 @@ abstract class TestCase extends Orchestra
         $this->withoutVite();
     }
 
-    protected function defineEnvironment($app)
+    protected function defineEnvironment($app): void
     {
         // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'testbench');
@@ -41,7 +41,7 @@ abstract class TestCase extends Orchestra
     {
         $this->loadLaravelMigrations();
 
-        include_once __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
-        (new \CreatePermissionTables)->up();
+        $CreatePermissionTables = include __DIR__.'/../vendor/spatie/laravel-permission/database/migrations/create_permission_tables.php.stub';
+        $CreatePermissionTables->up();
     }
 }
