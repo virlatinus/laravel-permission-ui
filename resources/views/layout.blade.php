@@ -9,7 +9,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="{{ asset('vendor/permission_ui/build/assets/app-CJ6L1w9E.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/permission_ui/build/assets/app-BVG9CApL.css') }}">
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="{{ asset('css/fontawesome.min.css') }}"> -->
 </head>
