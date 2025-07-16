@@ -1,6 +1,9 @@
 ## Laravel Permission UI
 
-**Tags:** laravel, spatie, package, permissions, tailwind
+**Tags:** laravel, spatie, package, permissions, tailwindcss
+**Requires at least:** 9.5
+**Tested up to:** 12.20
+**Stable tag:** 0.0.1
 **License:** MIT
 **License URI:** https://opensource.org/license/mit
 
@@ -94,5 +97,5 @@ It should work on Laravel 9 up to 12.
 
 ### Is there a video about this package?
 
-Yes, the original author, Povilas Korop, posted a [video on Youtube](https://www.youtube.com/watch?v=tzHP-rSi598) about this package.
+Yes, the original author, Povilas Korop, posted a [video on YouTube](https://www.youtube.com/watch?v=tzHP-rSi598) about this package.
 
