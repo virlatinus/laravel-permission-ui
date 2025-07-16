@@ -47,7 +47,7 @@
             @yield('content_general')
         </div>
     </main>
-    @vite('resources/js/app.js')
+<!--    @ vite('resources/js/app.js') -->
     @stack('child-scripts')
 </body>
 </html>
