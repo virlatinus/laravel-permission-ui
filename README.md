@@ -37,7 +37,7 @@ composer require virlatinus/laravel-permission-ui
 
 Go to `yourdomain.com/permissions` and you should see a simple dashboard with three menu items on top: to manage roles, permissions and assign them to users.
 
-![Spatie Permission UI](https://laraveldaily.com/uploads/2022/10/laravel-permission-ui.png)
+![Spatie Permission UI](screenshot.png)
 
 That dashboard is by default protected by the `auth` middleware, but you can configure it, by publishing the config:
 
