@@ -1,7 +1,7 @@
 @extends('PermissionsUI::layouts.layout')
 
 @section('title')
-  {{ __('PermissionsUI::permissions.users.title_edit') }}
+  {{ __('PermissionsUI::permissions.tenants.title_edit') }}
 @endsection
 
 @section('active_tenants', "active")

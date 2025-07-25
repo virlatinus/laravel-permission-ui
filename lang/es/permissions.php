@@ -49,6 +49,7 @@ return [
         'heading' => 'Administra los usuarios del sistema',
         'fields'  => [
             'id'       => 'ID',
+            'tenant'   => 'Inquilino',
             'name'     => 'Nombre',
             'email'    => 'Correo',
             'password' => 'Password',
@@ -61,12 +62,12 @@ return [
             'updated_at' => 'Actualizado en',
         ],
         'title_create' => 'Crear un usuario',
-        'title_edit'   => 'Asignar roles al usuario',
-        'title_edit_multi'   => 'Asignar roles a múltiples usuarios',
+        'title_edit'   => 'Editar usuario',
+        'title_edit_multi'   => 'Editar múltiples usuarios',
     ],
 
     'tenants' => [
-        'title'   => 'Clientes',
+        'title'   => 'Inquilinos',
         'heading' => 'Administra los inquilinos de la aplicación',
         'fields'  => [
             'id'          => 'ID',

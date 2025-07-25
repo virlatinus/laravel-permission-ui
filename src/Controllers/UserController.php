@@ -13,9 +13,13 @@ class UserController extends Controller
 {
     public function index(): View
     {
-        $users = User::with([
-            'roles' => fn ($query) => $query->orderBy('name', 'asc')
-        ])->paginate(5);
+        $relations = [
+            'roles' => fn($query) => $query->orderBy('name', 'asc'),
+        ];
+        if (self::hasMultitenancy()) {
+           $relations[] = config('permission_ui.tenant_id_relationship');
+        }
+        $users = User::with($relations)->paginate(config('permission_ui.pagination_page_size', 5));
 
         $roleColors = Role::all()->map(function ($role) { return [$role->name => static::stringToColor($role->name)]; })->collapseWithKeys()->toArray();
 

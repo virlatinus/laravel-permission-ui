@@ -49,6 +49,7 @@ return [
         'heading' => 'A list of all the users in your system including their name, email and roles',
         'fields'  => [
             'id'       => 'ID',
+            'tenant'   => 'Tenant',
             'name'     => 'Name',
             'email'    => 'Email',
             'password' => 'Password',
@@ -61,8 +62,8 @@ return [
             'updated_at' => 'Updated at',
         ],
         'title_create' => 'Create a user',
-        'title_edit'   => 'Assign roles to user',
-        'title_edit_multi'   => 'Assign roles to multiple users',
+        'title_edit'   => 'Edit user',
+        'title_edit_multi'   => 'Edit multiple users',
     ],
 
     'tenants' => [

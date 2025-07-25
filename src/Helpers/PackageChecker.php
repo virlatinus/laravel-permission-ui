@@ -24,6 +24,10 @@ class PackageChecker
      */
     public static function isPackageInstalled(string $packageName): bool
     {
+        if (!config('permission_ui.enable_tenants_admin')) {
+            return false;
+        }
+
         $composerLockPath = base_path('composer.lock');
 
         if (!file_exists($composerLockPath)) {

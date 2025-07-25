@@ -55,6 +55,10 @@
                     class="hidden py-3.5 pr-3 pl-4 font-semibold text-left text-sm text-gray-900 md:table-cell">{{ __('PermissionsUI::permissions.users.fields.email') }}</th>
                 <th scope="col"
                     class="px-3 py-3.5 font-semibold text-left text-sm text-gray-900">{{ __('PermissionsUI::permissions.users.fields.roles') }}</th>
+                @if($hasMultitenancy??null)
+                <th scope="col"
+                      class="hidden px-3 py-3.5 font-semibold text-left text-sm text-gray-900 lg:table-cell">{{ __('PermissionsUI::permissions.users.fields.tenant') }}</th>
+                @endif
                 <th scope="col"
                     class="hidden px-3 py-3.5 font-semibold text-left text-sm text-gray-900 lg:table-cell">{{ __('PermissionsUI::permissions.users.fields.created_at') }}</th>
                 <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6">
@@ -101,6 +105,10 @@
                                               ])
                     @endforeach
                   </td>
+                  @if($hasMultitenancy??null)
+                    <td
+                        class="tdl hidden px-3 py-5 text-sm whitespace-nowrap text-gray-500 lg:table-cell">{{ $user->{config('permission_ui.tenant_id_relationship')}?->name }}</td>
+                  @endif
                   <td
                       class="tdl hidden px-3 py-5 text-sm whitespace-nowrap text-gray-500 lg:table-cell">{{ $user->created_at }}</td>
 
@@ -144,7 +152,7 @@
               @empty
                 <tr>
                   <td class="p-6"
-                      colspan="6">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
+                      colspan="{{($hasMultitenancy??null) ? 7 : 6}}">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
                 </tr>
               @endforelse
               </tbody>

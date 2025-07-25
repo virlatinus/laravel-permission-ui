@@ -49,6 +49,7 @@ return [
         'heading' => 'Uma lista de todos os usuários em seu sistema, incluindo seus nomes, e-mails e funções',
         'fields'  => [
             'id'       => 'ID',
+            'tenant'   => 'Inquilino',
             'name'     => 'Nome',
             'email'    => 'E-mail',
             'password' => 'Password',
@@ -61,8 +62,8 @@ return [
             'updated_at' => 'Atualizado em',
         ],
         'title_create' => 'Criar um usuário',
-        'title_edit'   => 'Atribuir funções ao usuário',
-        'title_edit_multi'   => 'Atribuir funções a vários usuários',
+        'title_edit'   => 'Editar um usuário',
+        'title_edit_multi'   => 'Editar vários usuários',
     ],
 
     'tenants' => [
