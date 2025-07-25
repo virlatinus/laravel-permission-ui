@@ -64,4 +64,18 @@ return [
         'title_edit'   => "Assegna ruoli all'utente",
         'title_edit_multi'   => 'Assegnare ruoli a più utenti',
     ],
+
+    'tenants' => [
+        'title'   => 'Inquilini',
+        'heading' => 'Gestisci gli inquilini della tua applicazione',
+        'fields'  => [
+            'id'          => 'ID',
+            'name'        => 'Nome',
+            'users'       => 'Utenti',
+            'created_at'  => 'Creato il',
+            'updated_at'  => 'Modificato il',
+        ],
+        'title_create' => 'Crea un utente',
+        'title_edit'   => "Assegna ruoli all'utente",
+    ],
 ];

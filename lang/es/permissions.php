@@ -64,4 +64,18 @@ return [
         'title_edit'   => 'Asignar roles al usuario',
         'title_edit_multi'   => 'Asignar roles a múltiples usuarios',
     ],
+
+    'tenants' => [
+        'title'   => 'Clientes',
+        'heading' => 'Administra los inquilinos de la aplicación',
+        'fields'  => [
+            'id'          => 'ID',
+            'name'        => 'Nombre',
+            'users'       => 'Usuarios',
+            'created_at'  => 'Creado en',
+            'updated_at'  => 'Actualizado en',
+        ],
+        'title_create' => 'Crear un inquilino',
+        'title_edit'   => 'Editar un inquilino',
+    ],
 ];

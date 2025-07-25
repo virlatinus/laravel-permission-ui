@@ -64,4 +64,18 @@ return [
         'title_edit'   => 'Assign roles to user',
         'title_edit_multi'   => 'Assign roles to multiple users',
     ],
+
+    'tenants' => [
+        'title'   => 'Tenants',
+        'heading' => 'Manage your application tenants',
+        'fields'  => [
+            'id'          => 'ID',
+            'name'        => 'Name',
+            'users'       => 'Users',
+            'created_at'  => 'Created at',
+            'updated_at'  => 'Updated at',
+        ],
+        'title_create' => 'Create a tenant',
+        'title_edit'   => 'Edit a tenant',
+    ],
 ];

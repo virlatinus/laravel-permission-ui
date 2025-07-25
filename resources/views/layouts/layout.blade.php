@@ -17,6 +17,14 @@
             'label' => __('PermissionsUI::permissions.permissions.title'),
         ],
     ];
+
+    if ($hasMultitenancy??null) {
+        array_unshift($menu, [
+            'class' => 'active_tenants',
+            'link' => route(config('permission_ui.route_name_prefix') . 'tenants.index'),
+            'label' => __('PermissionsUI::permissions.tenants.title'),
+        ]);
+    }
 @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">

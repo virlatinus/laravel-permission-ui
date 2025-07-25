@@ -1,12 +1,12 @@
 @extends('PermissionsUI::layouts.layout')
 
 @section('title')
-  {{ __('PermissionsUI::permissions.users.title') }}
+  {{ __('PermissionsUI::permissions.tenants.title') }}
 @endsection
 
-@section('active_tenants', "inactive")
+@section('active_tenants', "active")
 
-@section('active_users', "active")
+@section('active_users', "inactive")
 
 @section('active_roles', 'inactive')
 
@@ -15,8 +15,8 @@
 @section('content')
   <div class="px-4 sm:px-6 lg:px-8">
     @include('PermissionsUI::shared.header', [
-      'heading' => __('PermissionsUI::permissions.users.heading'),
-      'link' => route(config('permission_ui.route_name_prefix') . 'users.create'),
+      'heading' => __('PermissionsUI::permissions.tenants.heading'),
+      'link' => route(config('permission_ui.route_name_prefix') . 'tenants.create'),
       'action' => __('PermissionsUI::permissions.global.create'),
     ])
 
@@ -27,9 +27,9 @@
 
             <!-- Selected row actions, only show when rows are selected. -->
             @include('PermissionsUI::shared.actions', [
-              'editLink' => route(config('permission_ui.route_name_prefix') . 'users.edit_multi'),
-              'deleteLink' => route(config('permission_ui.route_name_prefix') . 'users.delete_multi'),
-              'arrayVar' => 'users[]',
+              'editLink' => null,
+              'deleteLink' => route(config('permission_ui.route_name_prefix') . 'tenants.delete_multi'),
+              'arrayVar' => 'tenants[]',
             ])
 
             <table class="min-w-full divide-y divide-gray-300">
@@ -38,7 +38,7 @@
                 <th scope="col" class="relative px-7 sm:w-12 sm:px-6">
                   <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
                     <input type="checkbox"
-                           onclick="toggleSelectAll({{count($users)}})"
+                           onclick="toggleSelectAll({{count($tenants)}})"
                            class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"/>
                     <svg viewBox="0 0 14 14" fill="none"
                          class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25">
@@ -50,13 +50,11 @@
                   </div>
                 </th>
                 <th scope="col"
-                    class="py-3.5 pr-3 pl-4 font-semibold text-left text-sm text-gray-900 sm:pl-6 min-w-[170px]">{{ __('PermissionsUI::permissions.users.fields.name') }}</th>
+                    class="py-3.5 pr-3 pl-4 font-semibold text-left text-sm text-gray-900 sm:pl-6 min-w-[170px]">{{ __('PermissionsUI::permissions.tenants.fields.name') }}</th>
                 <th scope="col"
-                    class="hidden py-3.5 pr-3 pl-4 font-semibold text-left text-sm text-gray-900 md:table-cell">{{ __('PermissionsUI::permissions.users.fields.email') }}</th>
+                    class="px-3 py-3.5 font-semibold text-left text-sm text-gray-900">{{ __('PermissionsUI::permissions.tenants.fields.users') }}</th>
                 <th scope="col"
-                    class="px-3 py-3.5 font-semibold text-left text-sm text-gray-900">{{ __('PermissionsUI::permissions.users.fields.roles') }}</th>
-                <th scope="col"
-                    class="hidden px-3 py-3.5 font-semibold text-left text-sm text-gray-900 lg:table-cell">{{ __('PermissionsUI::permissions.users.fields.created_at') }}</th>
+                    class="hidden px-3 py-3.5 font-semibold text-left text-sm text-gray-900 lg:table-cell">{{ __('PermissionsUI::permissions.tenants.fields.created_at') }}</th>
                 <th scope="col" class="relative py-3.5 pr-4 pl-3 sm:pr-6">
                   <span class="sr-only">{{ __('PermissionsUI::permissions.global.edit') }}</span>
                 </th>
@@ -64,7 +62,7 @@
               </thead>
               <tbody class="bg-white divide-y divide-gray-200">
               @php($formCount = 1)
-              @forelse($users as $user)
+              @forelse($tenants as $tenant)
                 <!-- Selected: "bg-gray-50" -->
                 <tr id="tr-{{$formCount}}">
                   <td class="relative px-7 sm:w-12 sm:px-6">
@@ -73,7 +71,7 @@
                     <div class="group absolute top-1/2 left-4 -mt-2 grid size-4 grid-cols-1">
                       <input type="checkbox"
                              id="check-{{$formCount}}"
-                             data-id="{{$user->id}}"
+                             data-id="{{$tenant->id}}"
                              onclick="toggleSelected({{$formCount}})"
                              class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto"/>
                       <svg viewBox="0 0 14 14" fill="none"
@@ -88,25 +86,23 @@
                   <!-- Selected: "text-indigo-600", Not Selected: "text-gray-900" -->
                   <td
                       class="tdh py-4 pr-3 pl-4 font-medium text-sm whitespace-nowrap text-gray-900 sm:pl-6">
-                    <div>{{ $user->name }}</div>
-                    <div class="tdl text-sm text-gray-500 md:hidden">{{ $user->email }}</div>
+                    <div>{{ $tenant->name }}</div>
                   </td>
-                  <td class="tdl hidden py-4 pr-3 pl-4 text-sm whitespace-nowrap text-gray-500 md:table-cell">{{ $user->email }}</td>
                   <td class="px-3 py-4 sm:flex-col lg:whitespace-nowrap">
-                    @foreach($user->roles as $role)
+                    @foreach($tenant->users as $user)
                       @include('PermissionsUI::shared.badge', [
-                                                'color' => $roleColors[$role->name],
-                                                'name' => $role->name,
-                                                'link' => route(config('permission_ui.route_name_prefix') . 'users.delete_role', [$user, $role]),
+                                                'color' => $userColors[$user->name],
+                                                'name' => $user->name,
+                                                'link' => route(config('permission_ui.route_name_prefix') . 'tenants.delete_user', [$tenant, $user]),
                                               ])
                     @endforeach
                   </td>
                   <td
-                      class="tdl hidden px-3 py-5 text-sm whitespace-nowrap text-gray-500 lg:table-cell">{{ $user->created_at }}</td>
+                      class="tdl hidden px-3 py-5 text-sm whitespace-nowrap text-gray-500 lg:table-cell">{{ $tenant->created_at }}</td>
 
                   <!-- Actions -->
                   <td class="relative py-4 pr-4 pl-3 flex justify-center items-center whitespace-nowrap sm:pr-6">
-                    <a href="{{ route(config('permission_ui.route_name_prefix') . 'users.edit', $user) }}"
+                    <a href="{{ route(config('permission_ui.route_name_prefix') . 'tenants.edit', $tenant) }}"
                        class="rounded-sm bg-white px-2 py-1 text-xs font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 flex"
                        role="button">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
@@ -115,10 +111,10 @@
                         <path
                             d="M18.375 2.625a1 1 0 0 1 3 3l-9.013 9.014a2 2 0 0 1-.853.505l-2.873.84a.5.5 0 0 1-.62-.62l.84-2.873a2 2 0 0 1 .506-.852z"></path>
                       </svg>
-                      <span class="sr-only">{{ __('PermissionsUI::permissions.global.edit') }} {{ $user->name }}</span></a>
+                      <span class="sr-only">{{ __('PermissionsUI::permissions.global.edit') }} {{ $tenant->name }}</span></a>
 
                     <form id="form{{ $formCount }}" class="inline-block"
-                          action="{{ route(config('permission_ui.route_name_prefix') . 'users.destroy', $user) }}"
+                          action="{{ route(config('permission_ui.route_name_prefix') . 'tenants.destroy', $tenant) }}"
                           method="POST">
                       @csrf
                       @method('DELETE')
@@ -136,7 +132,7 @@
                           <line x1="14" x2="14" y1="11" y2="17"></line>
                         </svg>
                         <span
-                            class="sr-only">{{ __('PermissionsUI::permissions.global.delete') }} {{ $user->name }}</span></a>
+                            class="sr-only">{{ __('PermissionsUI::permissions.global.delete') }} {{ $tenant->name }}</span></a>
                     </form>
                   </td>
                   <!-- End of Actions -->
@@ -144,7 +140,7 @@
               @empty
                 <tr>
                   <td class="p-6"
-                      colspan="6">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
+                      colspan="5">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
                 </tr>
               @endforelse
               </tbody>
@@ -154,9 +150,9 @@
       </div>
     </div>
 
-    @if($users->links())
+    @if($tenants->links())
       <div class="mt-3">
-        {{ $users->links() }}
+        {{ $tenants->links() }}
       </div>
     @endif
 

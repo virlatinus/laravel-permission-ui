@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
+use virlatinus\PermissionsUI\Helpers\PackageChecker;
 
 class Controller extends BaseController
 {
@@ -32,5 +33,14 @@ class Controller extends BaseController
         $color = ($red << 16) + ($green << 8) + ($blue);
 
         return "#" . str_pad(dechex($color), 6, "0", STR_PAD_LEFT);
+    }
+
+    private static ?bool $hasMultitenancy = null;
+
+    public static function hasMultitenancy(): bool {
+        if (is_null(self::$hasMultitenancy)) {
+            self::$hasMultitenancy = PackageChecker::isPackageInstalled('spatie/laravel-multitenancy');
+        }
+        return self::$hasMultitenancy;
     }
 }

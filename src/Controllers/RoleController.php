@@ -18,14 +18,14 @@ class RoleController extends Controller
 
         $permissionColors = Permission::all()->map(function ($p) { return [$p->name => static::stringToColor($p->name)]; })->collapseWithKeys()->toArray();
 
-        return view('PermissionsUI::roles.index', compact('roles', 'permissionColors'));
+        return view('PermissionsUI::roles.index', compact('roles', 'permissionColors'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function create(): View
     {
         $permissions = Permission::pluck('name', 'id');
 
-        return view('PermissionsUI::roles.create', compact('permissions'));
+        return view('PermissionsUI::roles.create', compact('permissions'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -48,7 +48,7 @@ class RoleController extends Controller
     {
         $permissions = Permission::pluck('name', 'id');
 
-        return view('PermissionsUI::roles.edit', compact('role', 'permissions'));
+        return view('PermissionsUI::roles.edit', compact('role', 'permissions'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function update(Request $request, Role $role): RedirectResponse
@@ -70,7 +70,11 @@ class RoleController extends Controller
 
     public function destroy(Role $role): RedirectResponse
     {
-        $role->delete();
+        if (method_exists($role,'forceDelete')) {
+            $role->forceDelete();
+        } else {
+            $role->delete();
+        }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'roles.index');
     }
@@ -94,7 +98,7 @@ class RoleController extends Controller
 
         $returnUrl = $request->input('returnUrl');
 
-        return view('PermissionsUI::roles.edit-multi', compact('roles', 'permissions', 'returnUrl'));
+        return view('PermissionsUI::roles.edit-multi', compact('roles', 'permissions', 'returnUrl'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function updateMultiple(Request $request): RedirectResponse
@@ -130,7 +134,11 @@ class RoleController extends Controller
             'returnUrl' => ['nullable', 'string'],
         ]);
 
-        Role::destroy($request->input('roles'));
+        if (method_exists(Role::class,'forceDestroy')) {
+            Role::forceDestroy($request->input('roles'));
+        } else {
+            Role::destroy($request->input('roles'));
+        }
 
         if ($request->has('returnUrl') && !empty($request->input('returnUrl'))) {
             return redirect()->away($request->input('returnUrl'));

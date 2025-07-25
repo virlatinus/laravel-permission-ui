@@ -19,14 +19,14 @@ class UserController extends Controller
 
         $roleColors = Role::all()->map(function ($role) { return [$role->name => static::stringToColor($role->name)]; })->collapseWithKeys()->toArray();
 
-        return view('PermissionsUI::users.index', compact('users', 'roleColors'));
+        return view('PermissionsUI::users.index', compact('users', 'roleColors'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function create(): View
     {
         $roles = Role::pluck('name', 'id');
 
-        return view('PermissionsUI::users.create', compact('roles'));
+        return view('PermissionsUI::users.create', compact('roles'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function store(Request $request): RedirectResponse
@@ -61,7 +61,7 @@ class UserController extends Controller
     {
         $roles = Role::pluck('name', 'id');
 
-        return view('PermissionsUI::users.edit', compact('user', 'roles'));
+        return view('PermissionsUI::users.edit', compact('user', 'roles'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function update(Request $request, User $user): RedirectResponse
@@ -94,7 +94,11 @@ class UserController extends Controller
 
     public function destroy(User $user): RedirectResponse
     {
-        $user->delete();
+        if (method_exists($user,'forceDelete')) {
+            $user->forceDelete();
+        } else {
+            $user->delete();
+        }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'users.index');
     }
@@ -118,7 +122,7 @@ class UserController extends Controller
 
         $returnUrl = $request->input('returnUrl');
 
-        return view('PermissionsUI::users.edit-multi', compact('users', 'roles', 'returnUrl'));
+        return view('PermissionsUI::users.edit-multi', compact('users', 'roles', 'returnUrl'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function updateMultiple(Request $request): RedirectResponse
@@ -154,7 +158,11 @@ class UserController extends Controller
             'returnUrl' => ['nullable', 'string'],
         ]);
 
-        User::destroy($request->input('users'));
+        if (method_exists(User::class,'forceDestroy')) {
+            User::forceDestroy($request->input('users'));
+        } else {
+            User::destroy($request->input('users'));
+        }
 
         if ($request->has('returnUrl') && !empty($request->input('returnUrl'))) {
             return redirect()->away($request->input('returnUrl'));

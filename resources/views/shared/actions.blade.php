@@ -1,5 +1,6 @@
 <div id="row-actions" class="hidden relative">
   <div class="absolute top-0 left-14 flex h-12 items-center space-x-3 bg-white sm:left-12">
+    @if(!empty($editLink))
     <form action="{{$editLink}}" method="post" id="editForm" data-array-var="{{ $arrayVar }}">
       @csrf
     <button type="submit"
@@ -7,6 +8,7 @@
       {{ __('PermissionsUI::permissions.global.bulk_edit') }}
     </button>
     </form>
+    @endif
     <form action="{{$deleteLink}}" method="post" id="deleteForm" data-array-var="{{ $arrayVar }}"
           data-confirm="{{ __('PermissionsUI::permissions.global.confirm_action') }}">
       @csrf

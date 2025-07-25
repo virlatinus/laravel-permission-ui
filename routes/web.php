@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use virlatinus\PermissionsUI\Controllers\RoleController;
 use virlatinus\PermissionsUI\Controllers\PermissionController;
+use virlatinus\PermissionsUI\Controllers\TenantController;
 use virlatinus\PermissionsUI\Controllers\UserController;
+use virlatinus\PermissionsUI\Helpers\PackageChecker;
 
 Route::redirect(config('permission_ui.url_prefix'), config('permission_ui.url_prefix') . '/users');
 
@@ -30,5 +32,11 @@ Route::group([
         Route::post('/permissions/edit_multi', [PermissionController::class, 'editMultiple'])->name('permissions.edit_multi');
         Route::post('/permissions/update_multi', [PermissionController::class, 'updateMultiple'])->name('permissions.update_multi');
         Route::post('/permissions/delete_multi', [PermissionController::class, 'deleteMultiple'])->name('permissions.delete_multi');
+
+        if (PackageChecker::isPackageInstalled('spatie/laravel-multitenancy')) {
+            Route::resource('tenants', TenantController::class)->except('show');
+            Route::get('/tenants/delete/{tenant}/{user}', [TenantController::class, 'deleteUser'])->name('tenants.delete_user');
+            Route::post('/tenants/delete_multi', [TenantController::class, 'deleteMultiple'])->name('tenants.delete_multi');
+        }
 
     });
