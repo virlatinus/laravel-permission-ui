@@ -4,6 +4,8 @@
     {{ __('PermissionsUI::permissions.roles.title') }}
 @endsection
 
+@section('active_tenants', "inactive")
+
 @section('active_users', 'inactive')
 
 @section('active_roles', 'active')
@@ -138,7 +140,7 @@
                             @empty
                                 <tr>
                                     <td class="p-6"
-                                        colspan="4">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
+                                        colspan="5">{{ __('PermissionsUI::permissions.global.no_records') }}</td>
                                 </tr>
                             @endforelse
                             </tbody>

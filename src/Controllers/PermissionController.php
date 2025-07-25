@@ -18,25 +18,24 @@ class PermissionController extends Controller
 
         $roleColors = Role::all()->map(function ($role) { return [$role->name => static::stringToColor($role->name)]; })->collapseWithKeys()->toArray();
 
-        return view('PermissionsUI::permissions.index', compact('permissions', 'roleColors'));
+        return view('PermissionsUI::permissions.index', compact('permissions', 'roleColors'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function create(): View
     {
         $roles = Role::pluck('name', 'id');
 
-        return view('PermissionsUI::permissions.create', compact('roles'));
+        return view('PermissionsUI::permissions.create', compact('roles'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $data = $request->validate([
+        $request->validate([
             'name' => ['required', 'string'],
             'roles' => ['array'],
         ]);
 
-        $permissionAttribute = ['name' => $request->input('name')];
-        $permission = Permission::create($permissionAttribute);
+        $permission = Permission::create(['name' => $request->input('name')]);
         $roles = $request->input('roles');
 
         if (!empty($roles)) {
@@ -53,7 +52,7 @@ class PermissionController extends Controller
     {
         $roles = Role::pluck('name', 'id');
 
-        return view('PermissionsUI::permissions.edit', compact('permission', 'roles'));
+        return view('PermissionsUI::permissions.edit', compact('permission', 'roles'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function update(Request $request, Permission $permission): RedirectResponse
@@ -63,8 +62,7 @@ class PermissionController extends Controller
             'roles' => ['array'],
         ]);
 
-        $permissionAttribute = ['name' => $request->input('name')];
-        $permission->update($permissionAttribute);
+        $permission->update(['name' => $request->input('name')]);
         $roles = $request->input('roles');
 
         // If some roles have been checked off, then all roles need to have their permissions cleared first
@@ -89,7 +87,11 @@ class PermissionController extends Controller
 
     public function destroy(Permission $permission): RedirectResponse
     {
-        $permission->delete();
+        if (method_exists($permission,'forceDelete')) {
+            $permission->forceDelete();
+        } else {
+            $permission->delete();
+        }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'permissions.index');
     }
@@ -113,7 +115,7 @@ class PermissionController extends Controller
 
         $returnUrl = $request->input('returnUrl');
 
-        return view('PermissionsUI::permissions.edit-multi', compact('permissions', 'roles', 'returnUrl'));
+        return view('PermissionsUI::permissions.edit-multi', compact('permissions', 'roles', 'returnUrl'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function updateMultiple(Request $request): RedirectResponse
@@ -159,7 +161,11 @@ class PermissionController extends Controller
             'returnUrl' => ['nullable', 'string'],
         ]);
 
-        Permission::destroy($request->input('permissions'));
+        if (method_exists(Permission::class,'forceDestroy')) {
+            Permission::forceDestroy($request->input('permissions'));
+        } else {
+            Permission::destroy($request->input('permissions'));
+        }
 
         if ($request->has('returnUrl') && !empty($request->input('returnUrl'))) {
             return redirect()->away($request->input('returnUrl'));

@@ -64,4 +64,18 @@ return [
         'title_edit'   => 'Atribuir funções ao usuário',
         'title_edit_multi'   => 'Atribuir funções a vários usuários',
     ],
+
+    'tenants' => [
+        'title'   => 'Inquilinos',
+        'heading' => 'Gerencie os inquilinos do seu aplicativo',
+        'fields'  => [
+            'id'          => 'ID',
+            'name'        => 'Nome',
+            'users'       => 'Usuários',
+            'created_at'  => 'Criado em',
+            'updated_at'  => 'Atualizado em',
+        ],
+        'title_create' => 'Criar um inquilino',
+        'title_edit'   => 'Editar um inquilino',
+    ],
 ];

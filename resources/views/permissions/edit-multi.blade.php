@@ -4,6 +4,8 @@
   {{ __('PermissionsUI::permissions.permissions.title_edit_multi') }}
 @endsection
 
+@section('active_tenants', "inactive")
+
 @section('active_users', 'inactive')
 
 @section('active_roles', 'inactive')
