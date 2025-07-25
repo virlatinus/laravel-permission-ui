@@ -5,7 +5,6 @@ namespace virlatinus\PermissionsUI\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Multitenancy\Contracts\IsTenant;
-use Spatie\Permission\Models\Role;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
 
@@ -15,9 +14,9 @@ class TenantController extends Controller
     {
         $tenants = app(IsTenant::class)::with([
             'users' => fn ($query) => $query->orderBy('name', 'asc')
-        ])->paginate(5);
+        ])->paginate(config('permission_ui.pagination_page_size', 5));
 
-        $userColors = Role::all()->map(function ($user) { return [$user->name => static::stringToColor($user->name)]; })->collapseWithKeys()->toArray();
+        $userColors = User::all()->map(function ($user) { return [$user->name => static::stringToColor($user->name)]; })->collapseWithKeys()->toArray();
 
         return view('PermissionsUI::tenants.index', compact('tenants', 'userColors'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
@@ -40,8 +39,9 @@ class TenantController extends Controller
             'name' => $request->input('name'),
             ]);
 
-        if ($request->has('users') && config('permission_ui.tenant_id_column')) {
-            User::find($request->input('users'))->update([config('permission_ui.tenant_id_column') => $tenant->id]);
+        $column = config('permission_ui.tenant_id_column');
+        if (!empty($column) && $request->has('users')) {
+            User::whereIn('id', $request->input('users'))->update([$column => $tenant->id]);
         }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'tenants.index');
@@ -68,8 +68,9 @@ class TenantController extends Controller
         $tenant->update(['name' => $request->input('name')]);
 
         // change string IDs to int
-        if ($request->has('users') && config('permission_ui.tenant_id_column')) {
-           User::find($request->input('users'))->update([config('permission_ui.tenant_id_column') => $tenant->id]);
+        $column = config('permission_ui.tenant_id_column');
+        if (!empty($column) && $request->has('users')) {
+           User::whereIn('id', $request->input('users'))->update([$column => $tenant->id]);
         }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'tenants.index');
@@ -92,8 +93,9 @@ class TenantController extends Controller
     {
         $user = app(User::class)->findOrFail($request->route('user'));
 
-        if (config('permission_ui.tenant_id_column')) {
-            $user->update([config('permission_ui.tenant_id_column') => null]);
+        $column = config('permission_ui.tenant_id_column');
+        if (!empty($column)) {
+            $user->update([$column => null]);
         }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'tenants.index');

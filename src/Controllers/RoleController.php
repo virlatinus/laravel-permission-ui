@@ -14,7 +14,7 @@ class RoleController extends Controller
     {
         $roles = Role::with([
             'permissions' => fn ($query) => $query->orderBy('name', 'asc')
-        ])->paginate(5);
+        ])->paginate(config('permission_ui.pagination_page_size', 5));
 
         $permissionColors = Permission::all()->map(function ($p) { return [$p->name => static::stringToColor($p->name)]; })->collapseWithKeys()->toArray();
 

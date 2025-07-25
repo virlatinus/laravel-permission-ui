@@ -49,6 +49,7 @@ return [
         'heading' => 'Un elenco di tutti gli utenti nel tuo sistema, inclusi nome, e-mail e ruoli',
         'fields'  => [
             'id'       => 'ID',
+            'tenant'   => 'Inquilino',
             'name'     => 'Nome',
             'email'    => 'Email',
             'password' => 'Password',
@@ -61,8 +62,8 @@ return [
             'updated_at' => 'Modificato il',
         ],
         'title_create' => 'Crea un utente',
-        'title_edit'   => "Assegna ruoli all'utente",
-        'title_edit_multi'   => 'Assegnare ruoli a più utenti',
+        'title_edit'   => "Modifica un utente",
+        'title_edit_multi'   => 'Modifica a più utenti',
     ],
 
     'tenants' => [
@@ -75,7 +76,7 @@ return [
             'created_at'  => 'Creato il',
             'updated_at'  => 'Modificato il',
         ],
-        'title_create' => 'Crea un utente',
-        'title_edit'   => "Assegna ruoli all'utente",
+        'title_create' => 'Crea un inquilino',
+        'title_edit'   => "Modifica un inquilino",
     ],
 ];
