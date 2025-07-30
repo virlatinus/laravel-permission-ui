@@ -3,7 +3,9 @@
 namespace virlatinus\PermissionsUI\Controllers;
 
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
+use ReflectionClass;
 use Spatie\Multitenancy\Contracts\IsTenant;
 use Illuminate\View\View;
 use Illuminate\Http\RedirectResponse;
@@ -25,19 +27,33 @@ class TenantController extends Controller
     {
         $users = User::pluck('name', 'id');
 
-        return view('PermissionsUI::tenants.create', compact('users'), ['hasMultitenancy'=>self::hasMultitenancy()]);
+        $fields = $this->getTenantFields();
+
+        return view('PermissionsUI::tenants.create', compact('users'), ['hasMultitenancy' => self::hasMultitenancy(), 'fields' => $fields]);
     }
 
     public function store(Request $request): RedirectResponse
     {
-        $request->validate([
+        $vars = [
             'name' => ['required', 'string'],
             'users' => ['array'],
-        ]);
+        ];
+        foreach ($this->getTenantFields() as $field) {
+            if (!isset($vars[$field])) {
+                $vars[$field] = ['nullable', 'string'];
+            }
+        }
+        $request->validate($vars);
 
-        $tenant = app(IsTenant::Class)::create([
+        $arr = [
             'name' => $request->input('name'),
-            ]);
+        ];
+        foreach ($this->getTenantFields() as $field) {
+            if (!isset($arr[$field])) {
+                $arr[$field] = $request->input($field);
+            }
+        }
+        $tenant = app(IsTenant::Class)::create($arr);
 
         $column = config('permission_ui.tenant_id_column');
         if (!empty($column) && $request->has('users')) {
@@ -53,19 +69,33 @@ class TenantController extends Controller
 
         $users = User::pluck('name', 'id');
 
-        return view('PermissionsUI::tenants.edit', compact('tenant', 'users'), ['hasMultitenancy'=>self::hasMultitenancy()]);
+        $fields = $this->getTenantFields();
+
+        return view('PermissionsUI::tenants.edit', compact('tenant', 'users'), ['hasMultitenancy'=>self::hasMultitenancy(), 'fields' => $fields]);
     }
 
     public function update(Request $request): RedirectResponse
     {
         $tenant = app(IsTenant::class)->findOrFail($request->route('tenant'));
 
-        $request->validate([
+        $vars = [
             'name' => ['required', 'string'],
             'users' => ['required', 'array'],
-        ]);
-        
-        $tenant->update(['name' => $request->input('name')]);
+        ];
+
+        foreach ($this->getTenantFields() as $field) {
+            $vars[$field] = ['nullable', 'string'];
+        }
+
+        $request->validate($vars);
+
+        $arr = ['name' => $request->input('name')];
+        foreach ($this->getTenantFields() as $field) {
+            if (!isset($arr[$field])) {
+                $arr[$field] = $request->input($field);
+            }
+        }
+        $tenant->update($arr);
 
         // change string IDs to int
         $column = config('permission_ui.tenant_id_column');
@@ -119,5 +149,21 @@ class TenantController extends Controller
         }
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'tenants.index');
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function getTenantFields(): mixed
+    {
+        try {
+            $tenantClass = new ReflectionClass(app(IsTenant::Class));
+            $props = $tenantClass->getDefaultProperties();
+            $fields = $props['fillable'];
+        } catch (Exception) {
+            $fields = [];
+        }
+
+        return $fields;
     }
 }

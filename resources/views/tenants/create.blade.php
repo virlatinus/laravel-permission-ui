@@ -22,18 +22,20 @@
 
             <div class="space-y-6">
 
-              <div>
-                <label for="name"
-                       class="block font-medium text-sm/6 text-gray-900">{{ __('PermissionsUI::permissions.tenants.fields.name') }}</label>
-                <div class="mt-2">
-                  <input id="name" type="text" name="name" required autocomplete="name"
-                         placeholder="{{ __('PermissionsUI::permissions.tenants.fields.name') }}"
-                         class="block w-full px-3 py-1.5 bg-white rounded-md outline-1 outline-gray-300 text-base text-gray-900 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 -outline-offset-1 placeholder:text-gray-400"/>
+              @foreach($fields as $name)
+                <div>
+                  <label for="{{$name}}"
+                         class="block font-medium text-sm/6 text-gray-900">{{ __('PermissionsUI::permissions.tenants.fields.' . $name) }}</label>
+                  <div class="mt-2">
+                    <input id="{{$name}}" type="text" name="{{$name}}" {{$name==='name'?'required':''}} autocomplete="{{$name}}"
+                           placeholder="{{ __('PermissionsUI::permissions.tenants.fields.' . $name) }}"
+                           class="block w-full px-3 py-1.5 bg-white rounded-md outline-1 outline-gray-300 text-base text-gray-900 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6 -outline-offset-1 placeholder:text-gray-400"/>
+                  </div>
+                  @error($name)
+                  <p id="{{$name}}-error" class="mt-2 text-sm text-red-600">{{ $message }}</p>
+                  @enderror
                 </div>
-                @error('name')
-                <p id="name-error" class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                @enderror
-              </div>
+              @endforeach
 
               @if($users->count())
                 <fieldset>
