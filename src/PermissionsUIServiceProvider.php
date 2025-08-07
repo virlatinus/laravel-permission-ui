@@ -2,6 +2,8 @@
 
 namespace virlatinus\PermissionsUI;
 
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 
 class PermissionsUIServiceProvider extends ServiceProvider
@@ -11,8 +13,11 @@ class PermissionsUIServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(__DIR__ . '/../config/permission_ui.php', 'permission_ui');
     }
 
-    public function boot(): void
+    public function boot(UrlGenerator $urlGenerator): void
     {
+        $urlGenerator->useAssetOrigin(URL::to('/'));
+        $urlGenerator->useOrigin(config('permission_ui.base_url'));
+
         // registering routes
         $this->loadRoutesFrom(__DIR__ . '/../routes/web.php');
 
