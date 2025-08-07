@@ -1,19 +1,20 @@
+@php use Illuminate\Support\Uri; @endphp
 {{ Vite::useBuildDirectory('vendor/permission_ui/build') }}
 @php
     $menu = [
         [
             'class' => 'active_users',
-            'link' => route(config('permission_ui.route_name_prefix') . 'users.index'),
+            'link' => Uri::of(config('permission_ui.base_url') . route(config('permission_ui.route_name_prefix') . 'users.index', [], false)),
             'label' => __('PermissionsUI::permissions.users.title'),
         ],
         [
             'class' => 'active_roles',
-            'link' => route(config('permission_ui.route_name_prefix') . 'roles.index'),
+            'link' => Uri::of(config('permission_ui.base_url') . route(config('permission_ui.route_name_prefix') . 'roles.index', [], false)),
             'label' => __('PermissionsUI::permissions.roles.title'),
         ],
         [
             'class' => 'active_permissions',
-            'link' => route(config('permission_ui.route_name_prefix') . 'permissions.index'),
+            'link' => Uri::of(config('permission_ui.base_url') . route(config('permission_ui.route_name_prefix') . 'permissions.index', [], false)),
             'label' => __('PermissionsUI::permissions.permissions.title'),
         ],
     ];
@@ -21,7 +22,7 @@
     if ($hasMultitenancy??null) {
         array_unshift($menu, [
             'class' => 'active_tenants',
-            'link' => route(config('permission_ui.route_name_prefix') . 'tenants.index'),
+            'link' => Uri::of(config('permission_ui.base_url') . route(config('permission_ui.route_name_prefix') . 'tenants.index', [], false)),
             'label' => __('PermissionsUI::permissions.tenants.title'),
         ]);
     }
