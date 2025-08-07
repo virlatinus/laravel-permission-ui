@@ -4,6 +4,7 @@ return [
     'middleware'        => ['web', 'auth'],
     'url_prefix'        => 'permissions',
     'route_name_prefix' => 'permission_ui.',
+    'base_url'          => config('app.url', 'http://localhost'),
 
     'pagination_page_size'  => 10,
 
