@@ -88,14 +88,16 @@
                                         class="tdh py-4 pr-3 pl-4 font-medium text-sm whitespace-nowrap text-gray-900 sm:pl-6">
                                         <div>{{ $role->name }}</div>
                                     </td>
-                                    <td class="px-3 py-4 sm:flex-col lg:whitespace-nowrap">
-                                        @foreach($role->permissions as $permission)
-                                            @include('PermissionsUI::shared.badge', [
-                                                'color' => $permissionColors[$permission->name],
-                                                'name' => $permission->name,
-                                                'link' => route(config('permission_ui.route_name_prefix') . 'roles.delete_permission', [$role, $permission]),
-                                              ])
-                                        @endforeach
+                                    <td class="px-3 py-4">
+                                        <div class="flex flex-wrap gap-x-1 gap-y-2">
+                                            @foreach($role->permissions as $permission)
+                                                @include('PermissionsUI::shared.badge', [
+                                                    'color' => $permissionColors[$permission->name],
+                                                    'name' => $permission->name,
+                                                    'link' => route(config('permission_ui.route_name_prefix') . 'roles.delete_permission', [$role, $permission]),
+                                                  ])
+                                            @endforeach
+                                        </div>
                                     </td>
                                     <td
                                         class="tdl hidden px-3 py-5 text-sm whitespace-nowrap text-gray-500 lg:table-cell">{{ $role->created_at }}</td>

@@ -15,6 +15,10 @@ class PermissionsUIServiceProvider extends ServiceProvider
 
     public function boot(UrlGenerator $urlGenerator): void
     {
+        $useHttps = config('permission_ui.use_https', app()->environment('production'));
+        if ($useHttps) { // Only force HTTPS in production
+            URL::forceScheme('https');
+        }
         $urlGenerator->useAssetOrigin(URL::to('/'));
         $urlGenerator->useOrigin(config('permission_ui.base_url'));
 

@@ -20,6 +20,7 @@ return [
         'fields'  => [
             'id'         => 'ID',
             'name'       => 'Permissão',
+            'users'      => 'Usuários',
             'roles'      => 'Funções',
             'created_at' => 'Criado em',
             'updated_at' => 'Atualizado em',

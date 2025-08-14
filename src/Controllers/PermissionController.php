@@ -2,6 +2,7 @@
 
 namespace virlatinus\PermissionsUI\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Illuminate\Contracts\View\View;
@@ -13,12 +14,14 @@ class PermissionController extends Controller
     public function index(): View
     {
         $permissions = Permission::with([
-            'roles' => fn ($query) => $query->orderBy('name', 'asc')
+            'roles' => fn ($query) => $query->orderBy('name', 'asc'),
+            'users' => fn ($query) => $query->orderBy('name', 'asc')
         ])->paginate(config('permission_ui.pagination_page_size', 5));
 
         $roleColors = Role::all()->map(function ($role) { return [$role->name => static::stringToColor($role->name)]; })->collapseWithKeys()->toArray();
+        $userColors = User::all()->map(function ($user) { return [$user->name => static::stringToColor($user->name)]; })->collapseWithKeys()->toArray();
 
-        return view('PermissionsUI::permissions.index', compact('permissions', 'roleColors'), ['hasMultitenancy'=>self::hasMultitenancy()]);
+        return view('PermissionsUI::permissions.index', compact('permissions', 'roleColors', 'userColors'), ['hasMultitenancy'=>self::hasMultitenancy()]);
     }
 
     public function create(): View
@@ -99,6 +102,13 @@ class PermissionController extends Controller
     public function deleteRole(Permission $permission, Role $role): RedirectResponse
     {
         $role->revokePermissionTo([$permission]);
+
+        return redirect()->route(config('permission_ui.route_name_prefix') . 'permissions.index');
+    }
+
+    public function deleteRoleUser(Permission $permission, User $user): RedirectResponse
+    {
+        $user->revokePermissionTo([$permission]);
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'permissions.index');
     }

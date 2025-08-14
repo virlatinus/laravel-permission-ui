@@ -96,14 +96,16 @@
                     <div class="tdl text-sm text-gray-500 md:hidden">{{ $user->email }}</div>
                   </td>
                   <td class="tdl hidden py-4 pr-3 pl-4 text-sm whitespace-nowrap text-gray-500 md:table-cell">{{ $user->email }}</td>
-                  <td class="px-3 py-4 sm:flex-col lg:whitespace-nowrap">
-                    @foreach($user->roles as $role)
-                      @include('PermissionsUI::shared.badge', [
-                                                'color' => $roleColors[$role->name],
-                                                'name' => $role->name,
-                                                'link' => route(config('permission_ui.route_name_prefix') . 'users.delete_role', [$user, $role]),
-                                              ])
-                    @endforeach
+                  <td class="px-3 py-4">
+                    <div class="flex flex-wrap gap-x-1 gap-y-2">
+                      @foreach($user->roles as $role)
+                        @include('PermissionsUI::shared.badge', [
+                                                  'color' => $roleColors[$role->name],
+                                                  'name' => $role->name,
+                                                  'link' => route(config('permission_ui.route_name_prefix') . 'users.delete_role', [$user, $role]),
+                                                ])
+                      @endforeach
+                    </div>
                   </td>
                   @if($hasMultitenancy??null)
                     <td

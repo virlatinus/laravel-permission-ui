@@ -28,7 +28,8 @@ Route::group([
         Route::post('/roles/update_multi', [RoleController::class, 'updateMultiple'])->name('roles.update_multi');
         Route::post('/roles/delete_multi', [RoleController::class, 'deleteMultiple'])->name('roles.delete_multi');
 
-        Route::get('/permissions/delete/{permission}/{role}', [PermissionController::class, 'deleteRole'])->name('permissions.delete_role');
+        Route::get('/permissions/delete/{permission}/role/{role}', [PermissionController::class, 'deleteRole'])->name('permissions.delete_role');
+        Route::get('/permissions/delete/{permission}/user/{user}', [PermissionController::class, 'deleteRoleUser'])->name('permissions.delete_role_user');
         Route::post('/permissions/edit_multi', [PermissionController::class, 'editMultiple'])->name('permissions.edit_multi');
         Route::post('/permissions/update_multi', [PermissionController::class, 'updateMultiple'])->name('permissions.update_multi');
         Route::post('/permissions/delete_multi', [PermissionController::class, 'deleteMultiple'])->name('permissions.delete_multi');
