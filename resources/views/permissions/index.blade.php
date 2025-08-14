@@ -51,6 +51,10 @@
                 </th>
                 <th scope="col"
                     class="py-3.5 pr-3 pl-4 font-semibold text-left text-sm text-gray-900 sm:pl-6 min-w-[170px]">{{ __('PermissionsUI::permissions.permissions.fields.name') }}</th>
+                @if(config('permission_ui.enable_user_permissions'))
+                <th scope="col"
+                    class="px-3 py-3.5 font-semibold text-left text-sm text-gray-900">{{ __('PermissionsUI::permissions.permissions.fields.users') }}</th>
+                @endif
                 <th scope="col"
                     class="px-3 py-3.5 font-semibold text-left text-sm text-gray-900">{{ __('PermissionsUI::permissions.permissions.fields.roles') }}</th>
                 <th scope="col"
@@ -88,14 +92,29 @@
                       class="tdh py-4 pr-3 pl-4 font-medium text-sm whitespace-nowrap text-gray-900 sm:pl-6">
                     <div>{{ $permission->name }}</div>
                   </td>
-                  <td class="px-3 py-4 sm:flex-col lg:whitespace-nowrap">
-                    @foreach($permission->roles as $role)
-                      @include('PermissionsUI::shared.badge', [
-                        'color' => $roleColors[$role->name],
-                        'name' => $role->name,
-                        'link' => route(config('permission_ui.route_name_prefix') . 'permissions.delete_role', [$permission, $role]),
-                      ])
-                    @endforeach
+                  @if(config('permission_ui.enable_user_permissions'))
+                  <td class="px-3 py-4">
+                    <div class="flex flex-wrap gap-x-1 gap-y-2">
+                      @foreach($permission->users as $user)
+                        @include('PermissionsUI::shared.badge', [
+                          'color' => $userColors[$user->name],
+                          'name' => $user->name,
+                          'link' => route(config('permission_ui.route_name_prefix') . 'permissions.delete_role_user', [$permission, $user]),
+                        ])
+                      @endforeach
+                    </div>
+                  </td>
+                  @endif
+                  <td class="px-3 py-4">
+                    <div class="flex flex-wrap gap-x-1 gap-y-2">
+                      @foreach($permission->roles as $role)
+                        @include('PermissionsUI::shared.badge', [
+                          'color' => $roleColors[$role->name],
+                          'name' => $role->name,
+                          'link' => route(config('permission_ui.route_name_prefix') . 'permissions.delete_role', [$permission, $role]),
+                        ])
+                      @endforeach
+                    </div>
                   </td>
                   <td
                       class="tdl hidden px-3 py-5 text-sm whitespace-nowrap text-gray-500 lg:table-cell">{{ $permission->created_at }}</td>
