@@ -30,7 +30,10 @@ class UserController extends Controller
             'roles' => ['required', 'array'],
         ]);
 
-        $user->syncRoles($request->input('roles'));
+        $roleIds = collect($request->input('roles', []))
+            ->map(fn ($id) => (int) $id)
+            ->all();
+        $user->syncRoles($roleIds);
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'users.index');
     }

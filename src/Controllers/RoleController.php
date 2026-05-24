@@ -33,7 +33,10 @@ class RoleController extends Controller
 
         $role = Role::create(['name' => $request->input('name')]);
 
-        $role->givePermissionTo($request->input('permissions'));
+        $permissionIds = collect($request->input('permissions', []))
+            ->map(fn ($id) => (int) $id)
+            ->all();
+        $role->givePermissionTo($permissionIds);
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'roles.index');
     }
@@ -54,7 +57,10 @@ class RoleController extends Controller
 
         $role->update(['name' => $request->input('name')]);
 
-        $role->syncPermissions($request->input('permissions'));
+        $permissionIds = collect($request->input('permissions', []))
+            ->map(fn ($id) => (int) $id)
+            ->all();
+        $role->syncPermissions($permissionIds);
 
         return redirect()->route(config('permission_ui.route_name_prefix') . 'roles.index');
     }
